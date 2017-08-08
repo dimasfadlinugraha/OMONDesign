@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.dimas.omondesign.Fragment.OneFragment"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:background="@color/windowBackground">
+
+    <android.support.v7.widget.CardView
+
+        android:id="@+id/soilMoistCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/one_cardview_margin_top"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/one_cardview_margin_left_right"
+        android:elevation="@dimen/one_cardview_elev"
+        app:cardCornerRadius="@dimen/one_cardview_cornerRadius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/one_cardview_padding">
+
+            <TextView
+                android:id="@+id/textViewSoil"
+                android:layout_width="@dimen/one_cardview_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSoil"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Kelembaban Tanah"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/imageViewSoil"
+                android:scaleType="fitCenter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/soil" />
+
+            <TextView
+                android:id="@+id/tvSoil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageViewSoil"
+                android:layout_centerHorizontal="true"
+                android:text="25%"
+                android:textColor="@color/navigationBarColor" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/tempCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/one_cardview_margin_left_right"
+        android:layout_marginTop="@dimen/one_cardview_margin_top"
+        android:elevation="@dimen/one_cardview_elev"
+        app:cardCornerRadius="@dimen/one_cardview_cornerRadius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/one_cardview_padding">
+
+            <TextView
+                android:id="@+id/textViewTemp"
+                android:layout_width="@dimen/one_cardview_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageViewTemp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:textAlignment="center"
+                android:text="Temperature" />
+
+
+            <ImageView
+                android:id="@+id/imageViewTemp"
+                android:scaleType="fitCenter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8dp"
+                app:srcCompat="@drawable/temp" />
+
+            <TextView
+                android:id="@+id/tvTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="25C"
+                android:textColor="@color/navigationBarColor"
+                android:layout_alignTop="@+id/imageViewTemp"
+                android:layout_alignEnd="@+id/imageViewTemp"
+                android:layout_marginTop="40dp" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/humidityCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/one_cardview_margin_top"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/one_cardview_margin_left_right"
+        android:layout_below="@id/soilMoistCard"
+        android:elevation="@dimen/one_cardview_elev"
+        app:cardCornerRadius="@dimen/one_cardview_cornerRadius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/one_cardview_padding">
+
+            <TextView
+                android:id="@+id/textViewHum"
+                android:layout_width="@dimen/one_cardview_width"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/circularProgressbarHum"
+                android:layout_marginTop="15dp"
+                android:text="Kelembaban Udara"
+                android:textAlignment="center" />
+
+            <ProgressBar
+
+                android:id="@+id/circularProgressbarHum"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="50"
+                android:progressDrawable="@drawable/circularhum"
+                android:secondaryProgress="100" />
+
+            <TextView
+                android:id="@+id/tvHum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="45dp"
+                android:text="50%"
+                android:textColor="@color/navigationBarColor" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+
+        android:id="@+id/airPressCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tempCard"
+        android:layout_marginRight="@dimen/one_cardview_margin_left_right"
+        android:layout_marginTop="@dimen/one_cardview_margin_top"
+        android:elevation="@dimen/one_cardview_elev"
+        app:cardCornerRadius="@dimen/one_cardview_cornerRadius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/one_cardview_padding">
+
+            <TextView
+                android:id="@+id/textViewAirPress"
+                android:layout_width="@dimen/one_cardview_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/circularProgressbarAirPress"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:layout_marginTop="16dp"
+                android:text="Tekanan Udara" />
+
+            <ProgressBar
+
+                android:id="@+id/circularProgressbarAirPress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/circularairpress"
+                android:secondaryProgress="100" />
+
+            <TextView
+                android:id="@+id/tvAirPress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp"
+
+                android:textColor="@color/navigationBarColor" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/buttonSpray"
+        android:background="#ffffff"
+        android:layout_width="120dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/humidityCard"
+        android:layout_alignRight="@id/humidityCard"
+        android:layout_marginTop="@dimen/one_cardview_margin_top"
+        android:onClick="spraySoil"
+        android:text="Siram (Spray)" />
+
+    <Button
+        android:id="@+id/buttonSoil"
+        android:background="#ffffff"
+        android:layout_width="120dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/airPressCard"
+        android:layout_alignLeft="@id/airPressCard"
+        android:layout_marginTop="@dimen/one_cardview_margin_top"
+        android:onClick="soakSoil"
+        android:text="Siram (Tanah)" />
+</RelativeLayout>
+
+
