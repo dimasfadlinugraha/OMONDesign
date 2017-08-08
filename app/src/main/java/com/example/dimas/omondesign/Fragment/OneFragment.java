@@ -24,8 +24,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 public class OneFragment extends Fragment {
 
     int pStatus = 0;
-    private Handler handler = new Handler();
     TextView tv;
+    private Handler handler = new Handler();
 
     public OneFragment(){
 
@@ -62,7 +62,7 @@ public class OneFragment extends Fragment {
                         public void run() {
                             // TODO Auto-generated method stub
                             mProgress.setProgress(pStatus);
-                            tv.setText(mainActivity.x);
+                            tv.setText(pStatus + "%");
 
                         }
                     });
