@@ -49,8 +49,7 @@ public class TwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstancestate) {
         View v = inflater.inflate(R.layout.fragment_two, container, false);
-
-        //String data=mainActivity.x;
+        String x = ((MainActivity)getActivity()).x; //TODO Data udh masuk tapi ga update di view
         slaveList = new ArrayList<>();
         adapter = new SlaveAdapter(getActivity(), slaveList);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
@@ -58,17 +57,18 @@ public class TwoFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
+        recylerData(x);
 
-        recylerData();
-        //Glide.with(this).load(R.drawable.slavelogo).into((ImageView) v.findViewById(R.id.imageView3));
         return v;
     }
 
-    private void recylerData() {
+    private void recylerData(String x) {
+
+        //TODO kirim data ke oneFragment buat diolah jadi average
 
         Slave a;
 
-        a = new Slave("Slave System 1", 20, 20, 40);
+        a = new Slave(x, 20, 20, 40);
         slaveList.add(a);
 
         a = new Slave("Slave System 2", 20, 25, 30);
@@ -79,6 +79,7 @@ public class TwoFragment extends Fragment {
 
         a = new Slave("Slave System 4", 20, 30, 34);
         slaveList.add(a);
+
  /*
         a = new Album("Honeymoon", 14, covers[4]);
         albumList.add(a);
@@ -101,8 +102,4 @@ public class TwoFragment extends Fragment {
  */
         adapter.notifyDataSetChanged();
     }
-
-    /**
-     * RecyclerView item decoration - give equal margin around grid item
-     */
 }

@@ -32,8 +32,9 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String x = "asdf";
     public MqttAndroidClient client;
+    public String x;
+    public boolean newData;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         text = (TextView)findViewById(R.id.tvAirPress);
@@ -55,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Toast.makeText(MainActivity.this, "Connected!!", Toast.LENGTH_LONG).show();
-
                     try{
-                        client.subscribe("SmartFarmProject/temp", 0);  //Subscribe
+                        client.subscribe("SmartFarmProject/data", 0);  //TODO Bikin method Subscribe
                     }catch (MqttException e){
                         e.printStackTrace();
                     }
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 x = new String(message.getPayload());
                 Toast.makeText(MainActivity.this, x , Toast.LENGTH_LONG).show();
+                newData=true;
             }
 
             @Override

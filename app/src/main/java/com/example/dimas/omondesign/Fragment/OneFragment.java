@@ -33,26 +33,30 @@ public class OneFragment extends Fragment {
 
     @Override
     public void  onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstancestate){
         View v = inflater.inflate(R.layout.fragment_one, container, false);
-        final MainActivity mainActivity= new MainActivity();
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.circularhum);
         final ProgressBar mProgress = (ProgressBar) v.findViewById(R.id.circularProgressbarHum);
-        mProgress.setProgress(0);   // Main Progress
-        mProgress.setSecondaryProgress(100); // Secondary Progress
-        mProgress.setMax(100); // Maximum Progress
+        mProgress.setProgress(0);
+        mProgress.setSecondaryProgress(100);
+        mProgress.setMax(100);
         mProgress.setProgressDrawable(drawable);
 
         tv = (TextView) v.findViewById(R.id.tvHum);
+
+        // TODO Data Soil,Temp,Hum sama Air Press hasil average dari Slave System yang ada di TwoFragment
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
+
                 while (pStatus < 100) {
                     pStatus = 30;
 
@@ -60,7 +64,7 @@ public class OneFragment extends Fragment {
 
                         @Override
                         public void run() {
-                            // TODO Auto-generated method stub
+
                             mProgress.setProgress(pStatus);
                             tv.setText(pStatus + "%");
 
