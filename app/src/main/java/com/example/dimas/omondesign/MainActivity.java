@@ -1,5 +1,6 @@
 package com.example.dimas.omondesign;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
@@ -10,31 +11,24 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.dimas.omondesign.Fragment.OneFragment;
-import com.example.dimas.omondesign.Fragment.ThreeFragment;
 import com.example.dimas.omondesign.Fragment.TwoFragment;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public MqttAndroidClient client;
-    public String x;
-    public boolean newData;
+    public Mqtt mqttAdapter;
+    public String x="heho";
+    public boolean newData=false;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -46,52 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         text = (TextView)findViewById(R.id.tvAirPress);
-        String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(), "tcp://broker.hivemq.com", clientId);
 
-
-        try {
-            IMqttToken token = client.connect();
-            token.setActionCallback(new IMqttActionListener() {
-
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Toast.makeText(MainActivity.this, "Connected!!", Toast.LENGTH_LONG).show();
-                    try{
-                        client.subscribe("SmartFarmProject/data", 0);  //TODO Bikin method Subscribe
-                    }catch (MqttException e){
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast.makeText(MainActivity.this, "Failed!!", Toast.LENGTH_LONG).show();
-
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-
-        client.setCallback(new MqttCallback() {
-            @Override
-            public void connectionLost(Throwable cause) {
-
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {
-                x = new String(message.getPayload());
-                Toast.makeText(MainActivity.this, x , Toast.LENGTH_LONG).show();
-                newData=true;
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
-
-            }
-        });
+        mqttAdapter = new Mqtt (getApplicationContext());
+        client = mqttAdapter.connect();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -103,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout=(TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
+
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new OneFragment(),"Home");
@@ -156,7 +108,4 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
-
-
 }

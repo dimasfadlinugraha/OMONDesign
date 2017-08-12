@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
+
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bumptech.glide.Glide;
 import com.example.dimas.omondesign.R;
 import com.example.dimas.omondesign.Slave;
 import com.example.dimas.omondesign.SlaveAdapter;
@@ -26,13 +25,13 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import static android.R.id.message;
+import com.example.dimas.omondesign.Data;
 
 public class TwoFragment extends Fragment {
 
-
+    private Data data;
     private RecyclerView recyclerView;
-    private SlaveAdapter adapter;
+    public SlaveAdapter adapter;
     private List<Slave> slaveList;
     public TwoFragment() {
 
@@ -45,61 +44,39 @@ public class TwoFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstancestate) {
         View v = inflater.inflate(R.layout.fragment_two, container, false);
-        String x = ((MainActivity)getActivity()).x; //TODO Data udh masuk tapi ga update di view
+        String x = ((MainActivity)getActivity()).x;
         slaveList = new ArrayList<>();
+        data = new Data(getActivity());
+        slaveList = data.baseData();
         adapter = new SlaveAdapter(getActivity(), slaveList);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
-        recylerData(x);
+
+        ((MainActivity)getActivity()).client.setCallback(new MqttCallback() {
+            @Override
+            public void connectionLost(Throwable cause) {
+
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws Exception {
+                slaveList=data.newData(new String (message.getPayload()));
+                adapter.swapData(slaveList);
+
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+
+            }
+        });
 
         return v;
-    }
-
-    private void recylerData(String x) {
-
-        //TODO kirim data ke oneFragment buat diolah jadi average
-
-        Slave a;
-
-        a = new Slave(x, 20, 20, 40);
-        slaveList.add(a);
-
-        a = new Slave("Slave System 2", 20, 25, 30);
-        slaveList.add(a);
-
-        a = new Slave("Slave System 3", 20, 15, 20);
-        slaveList.add(a);
-
-        a = new Slave("Slave System 4", 20, 30, 34);
-        slaveList.add(a);
-
- /*
-        a = new Album("Honeymoon", 14, covers[4]);
-        albumList.add(a);
-
-        a = new Album("I Need a Doctor", 1, covers[5]);
-        albumList.add(a);
-
-        a = new Album("Loud", 11, covers[6]);
-        albumList.add(a);
-
-        a = new Album("Legend", 14, covers[7]);
-        albumList.add(a);
-
-        a = new Album("Hello", 11, covers[8]);
-        albumList.add(a);
-
-        a = new Album("Greatest Hits", 17, covers[9]);
-        albumList.add(a);
-
- */
-        adapter.notifyDataSetChanged();
     }
 }

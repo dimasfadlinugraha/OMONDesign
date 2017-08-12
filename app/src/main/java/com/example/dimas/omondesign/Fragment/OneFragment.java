@@ -20,8 +20,9 @@ import android.widget.TextView;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
-
+import com.example.dimas.omondesign.MainActivity;
 public class OneFragment extends Fragment {
+
 
     int pStatus = 0;
     TextView tv;
@@ -51,7 +52,7 @@ public class OneFragment extends Fragment {
         tv = (TextView) v.findViewById(R.id.tvHum);
 
         // TODO Data Soil,Temp,Hum sama Air Press hasil average dari Slave System yang ada di TwoFragment
-
+        /*
         new Thread(new Runnable() {
 
             @Override
@@ -66,7 +67,7 @@ public class OneFragment extends Fragment {
                         public void run() {
 
                             mProgress.setProgress(pStatus);
-                            tv.setText(pStatus + "%");
+                            tv.setText(((MainActivity)getActivity()).x+ "%");
 
                         }
                     });
@@ -80,7 +81,7 @@ public class OneFragment extends Fragment {
                 }
             }
         }).start();
-
+        */
         return v;
     }
 

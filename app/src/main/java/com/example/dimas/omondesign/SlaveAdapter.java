@@ -1,9 +1,7 @@
 package com.example.dimas.omondesign;
 
-import android.app.Activity;
-import android.app.Fragment;
+
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,14 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dimas.omondesign.MainActivity;
+import com.example.dimas.omondesign.Fragment.TwoFragment;
 import com.bumptech.glide.Glide;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Dimas on 03/08/2017.
@@ -31,6 +27,7 @@ import static java.security.AccessController.getContext;
 public class SlaveAdapter extends RecyclerView.Adapter<SlaveAdapter.MyViewHolder>{
     private Context mContext;
     private List<Slave> slaveList;
+    private TwoFragment adapter;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView title, temp, soilMoist, humidity;
@@ -55,10 +52,6 @@ public class SlaveAdapter extends RecyclerView.Adapter<SlaveAdapter.MyViewHolder
         this.mContext = mContext;
         this.slaveList = slaveList;
     }
-    public SlaveAdapter(List<Slave> slaveList) {
-
-        this.slaveList = slaveList;
-    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -78,7 +71,6 @@ public class SlaveAdapter extends RecyclerView.Adapter<SlaveAdapter.MyViewHolder
         Glide.with(mContext).load(R.drawable.temp).into(holder.slaveTemp);
         Glide.with(mContext).load(R.drawable.soil).into(holder.slaveSoil);
         Glide.with(mContext).load(R.drawable.humidity).into(holder.slaveHum);
-        //Glide.with(mContext).load(R.drawable.ic_dots).into(holder.dotsMenu);
         holder.dotsMenuClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,9 +79,13 @@ public class SlaveAdapter extends RecyclerView.Adapter<SlaveAdapter.MyViewHolder
         });
     }
 
-
+    public void swapData(List<Slave> newList){
+        Toast.makeText(mContext, "Connected!!", Toast.LENGTH_LONG).show();
+        slaveList.clear();
+        slaveList.addAll(newList);
+        this.notifyDataSetChanged();
+    }
     private void showPopupMenu(View view) {
-        // inflate pop up menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_slave, popup.getMenu());
@@ -107,9 +103,6 @@ public class SlaveAdapter extends RecyclerView.Adapter<SlaveAdapter.MyViewHolder
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-
-            //TODO bikin case ngejalanin function soakSoil & spraySoil yang ada di mainActivity
-
             String topic = "SmartFarmProject/perintah";
             String message1 = "1";
             String message2 = "2";
