@@ -51,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageViewSoil"
                 android:layout_centerHorizontal="true"
-                android:text="25%"
                 android:textColor="@color/navigationBarColor" />
 
 
@@ -102,7 +101,6 @@
                 android:layout_alignTop="@+id/imageViewTemp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="40dp"
-                android:text="25C"
                 android:textColor="@color/navigationBarColor" />
 
 
@@ -156,7 +154,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="45dp"
-                android:text="50%"
                 android:textColor="@color/navigationBarColor" />
 
 
@@ -210,7 +207,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="45dp"
-                android:text="25%"
                 android:textColor="@color/navigationBarColor" />
 
 

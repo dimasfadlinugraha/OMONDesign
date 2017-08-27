@@ -24,7 +24,7 @@ public class Data {
 
         Slave a;
 
-        a = new Slave("Slave System 5", 20, 20, 40);
+        a = new Slave("Slave System 1", 20, 20, 40);
         slaveList.add(a);
 
         a = new Slave("Slave System 2", 20, 25, 30);
@@ -38,7 +38,34 @@ public class Data {
 
         return slaveList;
     }
-    public List<Slave> newData(String data){
+    public int [] newDataFragOne (String data){
+        int [] sys1 = decode(0,6,data);
+        int [] sys2 = decode(6,12,data);
+        int [] sys3 = decode(12,18,data);
+        int [] sys4 = decode(18,24,data);
+
+        int avgTemp =(sys1[0]+sys2[0]+sys3[0]+sys4[0])/4;
+        int avgSoilMoist=(sys1[1]+sys2[1]+sys3[1]+sys4[1])/4;
+        int avgHum =(sys1[2]+sys2[2]+sys3[2]+sys4[2])/4;
+        int airPress = decodeAirPress(24,26,data);
+
+        int [] avg = new int[]{
+                avgTemp,
+                avgSoilMoist,
+                avgHum,
+                airPress
+        };
+        return avg;
+    }
+
+    public int decodeAirPress(int x, int y, String data){
+
+        String strDecode=decodeStringSub(x,y,data);
+        int airPress=StringToInt(strDecode);
+        return airPress;
+    }
+
+    public List<Slave> newDataFragTwo(String data){
 
         int [] sys1 = decode(0,6,data);
         int [] sys2 = decode(6,12,data);
@@ -74,7 +101,7 @@ public class Data {
         int soilMoist=decoded%100;
         decoded=decoded/100;
         int temp=decoded;
-        Toast.makeText(mContext, strDecode, Toast.LENGTH_LONG).show();
+        //Toast.makeText(mContext, strDecode, Toast.LENGTH_LONG).show();
         int [] comData= new int[]{
                 temp,
                 soilMoist,
@@ -83,6 +110,7 @@ public class Data {
         return comData;
     }
     public String decodeStringSub(int x, int y,String data){
+
         return data.substring(x, y);
     }
     public int StringToInt(String data){

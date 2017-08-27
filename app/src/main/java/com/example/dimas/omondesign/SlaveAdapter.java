@@ -80,7 +80,7 @@ public class SlaveAdapter extends RecyclerView.Adapter<SlaveAdapter.MyViewHolder
     }
 
     public void swapData(List<Slave> newList){
-        Toast.makeText(mContext, "Connected!!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(mContext, "Connected!!", Toast.LENGTH_LONG).show();
         slaveList.clear();
         slaveList.addAll(newList);
         this.notifyDataSetChanged();
