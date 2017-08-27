@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,6 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import com.example.dimas.omondesign.Data;
-import com.example.dimas.omondesign.Fragment.OneFragment;
 
 public class TwoFragment extends Fragment {
 
@@ -71,10 +68,7 @@ public class TwoFragment extends Fragment {
                 int [] newData = data.newDataFragOne(messageNew);
                 slaveList=data.newDataFragTwo(messageNew);
                 adapter.swapData(slaveList);
-                OneFragment oneFragment = new OneFragment();
-                oneFragment.swapData(messageNew);
-
-
+                ((MainActivity)getActivity()).swapHomeData(newData);
             }
 
             @Override
